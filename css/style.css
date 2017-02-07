@@ -791,7 +791,7 @@ ul.address li a:hover {
 }
 
 p {
-    font-size: 1em;
+    font-size: 1.2em;
     color: #FFF;
     line-height: 1.8em;
 }
@@ -1740,4 +1740,9 @@ a.pa_italic:focus {
 p.content {
     font-size: 1.5em;
     font-family: 'Kurale', serif;
+}
+
+.content span{
+    color:gold;
+    font-style: italic;
 }
