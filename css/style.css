@@ -8,7 +8,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    background: #181B27;
+    background: #5f2b2b;
     height: 100%;
     width: 100%;
 }
@@ -625,7 +625,7 @@ body .buttons-wrapper .slider > li:nth-child(1) {
 }
 
 body .buttons-wrapper .slider > li:nth-child(2) {
-    background: #000;
+    background: #5f2b2b;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -ms-background-size: cover;
