@@ -45,11 +45,13 @@
   */
  function updateSigninStatus(isSignedIn) {
      if (isSignedIn) {
+         $('.displayIcon').hide();
          authorizeButton.style.display = 'none';
-         signoutButton.style.display = 'block';
+         signoutButton.style.display = 'inline';
          listUpcomingEvents();
      } else {
-         authorizeButton.style.display = 'block';
+         $('.displayIcon').show();
+         authorizeButton.style.display = 'inline';
          signoutButton.style.display = 'none';
      }
  }
@@ -86,6 +88,31 @@
   * appropriate message is printed.
   */
  function listUpcomingEvents() {
+     var chkExists = false;
+     gapi.client.load('calendar', 'v3', function() {
+         var request = gapi.client.calendar.events.list({
+             'calendarId': 'primary'
+         });
+
+         request.execute(function(resp) {
+             for (var i = 0; i < resp.items.length; i++) {
+                 if (resp.items[i].summary === "Vignesh Engagement Meenakshi") {
+                     chkExists = true;
+                     authorizeButton.style.display = 'none';
+                     $('.displayIcon').hide();
+                 }
+             }
+             if (!chkExists) {
+                 insertEvent();
+                 authorizeButton.style.display = 'none';
+             }
+
+         });
+     });
+
+ }
+
+ function insertEvent() {
      var resource = {
          "summary": "Vignesh Engagement Meenakshi",
          "location": "AP Mini Hall, No 10, Gst Road, Pallavaram, Chennai 600043",
@@ -110,9 +137,8 @@
          'resource': resource
      });
      request.execute(function(resp) {
-         console.log(resp);
          if (resp && resp.status) {
-             $(".content-text").html("Thanks for adding an event. Waiting for your presence");
+             $(".content-text").html("Event has been successfully added in your google calendar");
          }
 
      });

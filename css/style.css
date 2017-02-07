@@ -1742,7 +1742,11 @@ p.content {
     font-family: 'Kurale', serif;
 }
 
-.content span{
-    color:gold;
+.content span {
+    color: gold;
     font-style: italic;
+}
+
+.content .displayIcon {
+    color: #FFF;
 }
