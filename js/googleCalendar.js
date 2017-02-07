@@ -6,7 +6,8 @@
 
  // Authorization scopes required by the API; multiple scopes can be
  // included, separated by spaces.
- var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+ //var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+ var SCOPES = "https://www.googleapis.com/auth/calendar";
 
  var authorizeButton = document.getElementById('authorize-button');
  var signoutButton = document.getElementById('signout-button');
@@ -85,28 +86,34 @@
   * appropriate message is printed.
   */
  function listUpcomingEvents() {
-     gapi.client.calendar.events.list({
-         'calendarId': 'primary',
-         'timeMin': (new Date()).toISOString(),
-         'showDeleted': false,
-         'singleEvents': true,
-         'maxResults': 10,
-         'orderBy': 'startTime'
-     }).then(function(response) {
-         var events = response.result.items;
-         appendPre('Upcoming events:');
-
-         if (events.length > 0) {
-             for (i = 0; i < events.length; i++) {
-                 var event = events[i];
-                 var when = event.start.dateTime;
-                 if (!when) {
-                     when = event.start.date;
-                 }
-                 appendPre(event.summary + ' (' + when + ')')
-             }
-         } else {
-             appendPre('No upcoming events found.');
+     var resource = {
+         "summary": "Vignesh Engagement Meenakshi",
+         "location": "AP Mini Hall, No 10, Gst Road, Pallavaram, Chennai 600043",
+         "start": {
+             "dateTime": "2017-03-16T16:00:00",
+             "timeZone": "Asia/Kolkata"
+         },
+         "end": {
+             "dateTime": "2017-03-16T20:00:00",
+             "timeZone": "Asia/Kolkata"
+         },
+         'reminders': {
+             'useDefault': false,
+             'overrides': [
+                 { 'method': 'email', 'minutes': 24 * 60 },
+                 { 'method': 'popup', 'minutes': 10 }
+             ]
          }
+     };
+     var request = gapi.client.calendar.events.insert({
+         'calendarId': 'primary',
+         'resource': resource
+     });
+     request.execute(function(resp) {
+         console.log(resp);
+         if (resp && resp.status) {
+             $(".content-text").html("Thanks for adding an event. Waiting for your presence");
+         }
+
      });
  }
