@@ -1750,3 +1750,8 @@ p.content {
 .content .displayIcon {
     color: #FFF;
 }
+
+.banner,
+.banner-w3lsinfo {
+    height: 100%;
+}
